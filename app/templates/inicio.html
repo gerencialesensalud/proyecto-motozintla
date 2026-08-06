@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ ciudad.nombre }} - Portal Oficial</title>
-    <!-- Tailwind CSS para un diseño moderno e inmediato -->
-    <script src="https://tailwindcss.com"></script>
-    <!-- Iconos Lucide -->
-    <script src="https://unpkg.com"></script>
+    <!-- ESTILOS LOCALES PROPIOS (Sin depender de internet) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.min.css') }}">
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased">
 
@@ -35,7 +33,9 @@
         <!-- Fondo degradado simulando la niebla de la sierra (Puedes cambiarlo luego por una foto real) -->
         <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/90 to-emerald-950/40 z-10"></div>
         <div class="absolute inset-0 bg-[url('https://unsplash.com')] bg-cover bg-center mix-blend-overlay"></div>
-        
+        <!-- Busca la sección HERO y cambia la línea del fondo por esta: -->
+<div class="absolute inset-0 bg-cover bg-center mix-blend-overlay" style="background-image: url('{{ url_for('static', filename='img/fondo-sierra.jpg') }}');"></div>
+
         <div class="relative z-20 max-w-5xl mx-auto px-6 py-20 text-left">
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 mb-6 border border-emerald-500/30">
                 <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Chiapas, México
