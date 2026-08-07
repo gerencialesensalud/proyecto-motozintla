@@ -1,10 +1,14 @@
 from flask import render_template, Blueprint
+# Importamos la función desde la subcarpeta exacta que definiste
+# Tu Blueprint actual
 
-# Creamos el Blueprint
-principal_bp = Blueprint('principal', __name__)
+bp = Blueprint('principal', __name__, 
+              template_folder='../templates',
+              static_folder='../static',
+              static_url_path='/static')
 
-# Usamos 'principal_bp' en lugar de 'app'
-@principal_bp.route('/')
+
+@bp.route('/')
 def inicio():
     datos_ciudad = {
         "nombre": "Motozintla de Mendoza",
@@ -13,4 +17,6 @@ def inicio():
         "altura": "1,300 msnm"
     }
     return render_template('inicio.html', ciudad=datos_ciudad)
+
+
 

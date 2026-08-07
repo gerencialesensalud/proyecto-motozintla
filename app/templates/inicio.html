@@ -1,40 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ ciudad.nombre }} - Portal Oficial</title>
-    <!-- ESTILOS LOCALES PROPIOS (Sin depender de internet) -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.min.css') }}">
-</head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+{% extends 'base.html' %}
 
-    <!-- BARRA DE NAVEGACIÓN -->
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-                <i data-lucide="mountain" class="w-6 h-6 text-emerald-600"></i>
-                <span class="font-bold text-xl tracking-tight text-slate-900">Motozintla</span>
-            </div>
-            <div class="hidden md:flex space-x-8 font-medium text-slate-600">
-                <a href="#" class="text-emerald-600 transition-colors">Inicio</a>
-                <a href="#" class="hover:text-emerald-600 transition-colors">Historia</a>
-                <a href="#" class="hover:text-emerald-600 transition-colors">Turismo</a>
-                <a href="#" class="hover:text-emerald-600 transition-colors">Café de la Sierra</a>
-            </div>
-            <button class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-medium transition-all text-sm shadow-sm shadow-emerald-200">
-                Explorar
-            </button>
-        </div>
-    </nav>
+{% block title %}{{ ciudad.nombre }} - Portal Oficial{% endblock %}
 
+{% block content %}
     <!-- SECCIÓN HERO (BIENVENIDA) -->
     <header class="relative bg-slate-900 text-white min-h-[70vh] flex items-center overflow-hidden">
-        <!-- Fondo degradado simulando la niebla de la sierra (Puedes cambiarlo luego por una foto real) -->
         <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/90 to-emerald-950/40 z-10"></div>
-        <div class="absolute inset-0 bg-[url('https://unsplash.com')] bg-cover bg-center mix-blend-overlay"></div>
-        <!-- Busca la sección HERO y cambia la línea del fondo por esta: -->
-<div class="absolute inset-0 bg-cover bg-center mix-blend-overlay" style="background-image: url('{{ url_for('static', filename='img/fondo-sierra.jpg') }}');"></div>
+        <div class="absolute inset-0 bg-cover bg-center mix-blend-overlay" style="background-image: url('{{ url_for('static', filename='img/fondo-sierra.jpg') }}');"></div>
 
         <div class="relative z-20 max-w-5xl mx-auto px-6 py-20 text-left">
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 mb-6 border border-emerald-500/30">
@@ -71,7 +43,7 @@
             <p class="text-lg text-slate-600 font-light">Descubre la riqueza cultural, productiva e histórica de una de las regiones con mayor identidad en el estado de Chiapas.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <!-- Tarjeta 1 -->
             <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
                 <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600 mb-6">
@@ -98,24 +70,21 @@
                 <h3 class="text-xl font-bold text-slate-900 mb-2">Historia y Tradición</h3>
                 <p class="text-slate-600 leading-relaxed text-sm">Lugar con raíces profundas y gente hospitalaria. Su historia comercial y agrícola conforma la identidad viva del sur de México.</p>
             </div>
+
+            <!-- Tarjeta 4 (Juego) -->
+            <div class="bg-emerald-50/50 p-8 rounded-2xl border border-emerald-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center text-white mb-6 font-bold text-lg">
+                        🐿️
+                    </div>
+                    <h3 class="text-xl font-bold text-emerald-950 mb-2">Club Ardillas</h3>
+                    <p class="text-emerald-800 leading-relaxed text-sm mb-6">¡Únete a la diversión y asiste al evento local! Sigue el campeonato y descubre qué ardilla conquistará la cima de la sierra en la Carrera 1.</p>
+                </div>
+                <a href="{{ url_for('ardillas.carrera_uno') }}" class="w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl font-medium transition-colors text-sm shadow-sm">
+                    Ir a la Carrera 🏁
+                </a>
+            </div>
         </div>
     </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center space-x-2 text-white">
-                <i data-lucide="mountain" class="w-5 h-5 text-emerald-500"></i>
-                <span class="font-semibold text-lg">Motozintla Digital</span>
-            </div>
-            <p class="text-sm font-light">&copy; 2026 Portal de Motozintla. Creado de manera independiente.</p>
-        </div>
-    </footer>
-
-    <!-- Inicializador de Iconos -->
-    <script>
-        lucide.createIcons();
-    </script>
-</body>
-</html>
+{% endblock %}
 

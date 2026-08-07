@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block title %}Registro de Corredor - Club Ardillas{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-6 py-12">
+    
+    <!-- Encabezado de Navegación Interna -->
+    <div class="mb-6">
+        <a href="{{ url_for('ardillas.carrera_info') }}" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1 transition-colors">
+            ← Volver a la Convocatoria 10K
+        </a>
+    </div>
+
+    <!-- Título de la Ficha -->
+    <div class="border-b border-slate-200 pb-4 mb-8">
+        <h1 class="text-3xl font-bold text-slate-900">Ficha Oficial de Inscripción</h1>
+        <p class="text-sm text-slate-500 mt-1">Completa tus datos. El sistema asignará tu categoría de forma automática según tu edad.</p>
+    </div>
+
+    <!-- FORMULARIO PRINCIPAL -->
+    <form action="{{ url_for('ardillas.registro_corredor') }}" method="POST" enctype="multipart/form-data" class="space-y-6" id="form-registro">
+        
+        <!-- Bloque 1: Datos Personales -->
+        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
+            <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-2">1. Datos Personales</h3>
+            
+            <div>
+                <label for="nombre" class="block text-xs font-bold text-slate-700 uppercase mb-1">Nombre Completo</label>
+                <input type="text" id="nombre" name="nombre" required minlength="10" placeholder="Ej. Juan Pérez López"
+                       class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition-all text-slate-900">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label for="telefono" class="block text-xs font-bold text-slate-700 uppercase mb-1">Teléfono WhatsApp (10 dígitos)</label>
+                    <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{10}" placeholder="9621496325"
+                           class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition-all text-slate-900">
+                </div>
+                <div>
+                    <label for="edad" class="block text-xs font-bold text-slate-700 uppercase mb-1">Edad</label>
+                    <input type="number" id="edad" name="edad" required min="10" max="90" placeholder="Ej. 25"
+                           class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition-all text-slate-900">
+                </div>
+            </div>
+        </div>
+
+        <!-- Bloque 2: Configuración de Competencia -->
+        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
+            <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-2">2. Competencia</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label for="rama" class="block text-xs font-bold text-slate-700 uppercase mb-1">Rama</label>
+                    <select id="rama" name="rama" required 
+                            class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition-all text-slate-900">
+                        <option value="" disabled selected>Selecciona...</option>
+                        <option value="Femenil">Femenil</option>
+                        <option value="Varonil">Varonil</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Categoría Asignada</label>
+                    <!-- El campo oculto envía el valor real a Flask; el input deshabilitado se lo muestra al usuario -->
+                    <input type="text" id="categoria-visible" disabled placeholder="Escribe tu edad primero..."
+                           class="w-full bg-slate-100 border border-slate-200 rounded-lg px-3 py-2 text-sm font-bold text-emerald-700 cursor-not-allowed">
+                    <input type="hidden" id="categoria" name="categoria">
+                </div>
+            </div>
+        </div>
+
+        <!-- Bloque 3: Validación del Pago -->
+        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
+            <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-2">3. Comprobante de Depósito</h3>
+            <p class="text-xs text-slate-500">Sube la captura de pantalla o foto nítida de tu transferencia de <strong>$160 MXN</strong>.</p>
+            
+            <div>
+                <label for="comprobante" class="block text-xs font-bold text-slate-700 uppercase mb-1">Adjuntar Imagen (PNG, JPG)</label>
+                <input type="file" id="comprobante" name="comprobante" required accept=".jpg,.jpeg,.png"
+                       class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm file:mr-4 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 transition-all text-slate-600">
+            </div>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="flex items-center justify-end space-x-4 pt-4">
+            <a href="{{ url_for('ardillas.carrera_info') }}" class="text-slate-600 hover:text-slate-900 font-medium text-sm transition-colors">
+                Cancelar
+            </a>
+            <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm px-6 py-2.5 rounded-lg transition-all shadow-sm">
+                Finalizar Inscripción 🐿️
+            </button>
+        </div>
+
+    </form>
+</div>
+
+<!-- LÓGICA DE VALIDACIÓN Y ENCUADRE DE CATEGORÍAS -->
+<script>
+    const inputEdad = document.getElementById('edad');
+    const inputCatVisible = document.getElementById('categoria-visible');
+    const inputCatOculto = document.getElementById('categoria');
+
+    inputEdad.addEventListener('input', function() {
+        const edad = parseInt(this.value);
+
+        if (isNaN(edad) || edad < 10) {
+            inputCatVisible.value = "Edad no válida";
+            inputCatOculto.value = "";
+            return;
+        }
+
+        let categoria = "";
+
+        // Reglas de encuadre oficiales por edad
+        if (edad >= 10 && edad <= 17) {
+            categoria = "Juvenil";
+        } else if (edad >= 18 && edad <= 39) {
+            categoria = "Libre";
+        } else if (edad >= 40 && edad <= 49) {
+            categoria = "Master";
+        } else if (edad >= 50) {
+            categoria = "Veteranos";
+        }
+
+        // Asignar los valores calculados
+        inputCatVisible.value = categoria;
+        inputCatOculto.value = categoria;
+    });
+
+    // Validación extra antes de enviar para asegurar que la categoría se generó
+    document.getElementById('form-registro').addEventListener('submit', function(e) {
+        if (!inputCatOculto.value) {
+            e.preventDefault();
+            alert("Por favor, ingresa una edad válida para determinar tu categoría automáticamente.");
+        }
+    });
+</script>
+{% endblock %}
+

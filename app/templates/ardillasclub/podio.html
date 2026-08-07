@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Club Ardillas - Carrera Motozintla</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; text-align: center; padding: 20px; }
+        .contenedor { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { color: #d35400; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: center; }
+        th { background-color: #e67e22; color: white; }
+        tr:hover { background-color: #f9f9f9; }
+        .corona { font-size: 1.2em; }
+    </style>
+</head>
+<body>
+
+<div class="contenedor">
+    <h1>🐿️ Resultados de la Carrera: Club Ardillas Motozintla 🏁</h1>
+    <p>¡Competencia en las alturas de la sierra!</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Lugar</th>
+                <th>Competidor</th>
+                <th>Distancia Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ardilla in podio %}
+            <tr>
+                <td>
+                    {% if ardilla.puesto == 1 %}🥇 
+                    {% elif ardilla.puesto == 2 %}🥈 
+                    {% elif ardilla.puesto == 3 %}🥉 
+                    {% else %}{{ ardilla.puesto }}
+                    {% endif %}
+                </td>
+                <strong><td>{{ ardilla.nombre }}</td></strong>
+                <td>{{ ardilla.distancia }} metros</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
+
